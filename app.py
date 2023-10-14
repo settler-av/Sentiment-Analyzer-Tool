@@ -7,10 +7,9 @@ import itertools
 import matplotlib.pyplot as plt
 
 st.title("Sentiment Analyzer Based On Text Analysis ")
-st.subheader("Paras Patidar - MLAIT")
+st.subheader("20CE155 - Adnan Vahora")
 st.write('\n\n')
 
-@st.cache
 def get_all_data():
     root = "Datasets/"
     with open(root + "imdb_labelled.txt", "r") as text_file:
@@ -29,7 +28,6 @@ all_data = get_all_data()
 if st.checkbox('Show Dataset'):
     st.write(all_data)
 
-@st.cache
 def preprocessing_data(data):
     processing_data = []
     for single_data in data:
@@ -42,7 +40,6 @@ def preprocessing_data(data):
 if st.checkbox('Show PreProcessed Dataset'):
     st.write(preprocessing_data(all_data))
 
-@st.cache
 def split_data(data):
     total = len(data)
     training_ratio = 0.75
@@ -56,7 +53,7 @@ def split_data(data):
             evaluation_data.append(data[indice])
 
     return training_data, evaluation_data
-@st.cache
+
 def preprocessing_step():
     data = get_all_data()
     processing_data = preprocessing_data(data)
@@ -70,7 +67,7 @@ def training_step(data,vectorizer):
     return BernoulliNB().fit(training_text,training_result)
 
 training_data,evaluation_data = preprocessing_step()
-vectorizer = CountVectorizer(binary='true')
+vectorizer = CountVectorizer(binary=True)
 classifier = training_step(training_data,vectorizer)
 
 def analyse_text(classifier,vectorizer,text):
